@@ -29,6 +29,10 @@ def validate(line: str) -> str:
         )
     if "\n" in text:
         raise ValueError("line must be a single line")
+    if any(ord(ch) < 32 for ch in text):
+        raise ValueError("line must not contain control characters")
+    if "  " in text:
+        raise ValueError("line must not contain double spaces")
     if not text.endswith("."):
         raise ValueError("line must end with a full stop")
     return text
